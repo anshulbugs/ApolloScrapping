@@ -1,0 +1,1 @@
+https://app.apollo.io/#/people?finderViewId=5b6dfc5a73f47568b2e5f11c&page=1&contactEmailStatus[]=verified&personTitles[]=owner&organizationNumEmployeesRanges[]=51%2C100&personLocations[]=Chandigarh%2C%20India&prospectedByCurrentTeam[]=yes

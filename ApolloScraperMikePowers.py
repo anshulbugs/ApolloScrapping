@@ -6,6 +6,7 @@ from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
 from selenium.common.exceptions import NoSuchElementException
 import time
+import os
 
 # In case you forgot how the plugin works check out this video :)
 
@@ -29,10 +30,10 @@ driver = webdriver.Chrome(service=service, options=chrome_options)
 
 # Link and name of CSV
 
-driver.get("https://app.apollo.io/?utm_campaign=Transactional%3A+Account+Activation&utm_medium=transactional_message&utm_source=cio#/people?finderViewId=5b8050d050a3893c382e9360&contactLabelIds[]=65ba82afe9e9280001635156&prospectedByCurrentTeam[]=yes")
+driver.get("https://app.apollo.io/#/people?finderViewId=5b6dfc5a73f47568b2e5f11c&page=1&personLocations[]=Noida%2C%20India&personTitles[]=teacher&prospectedByCurrentTeam[]=yes")
 csv_file_name = 'Developers.csv'
 
-time.sleep(4)
+time.sleep(8)
 
 def find_email_address(page_source):
     email_pattern = r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b'
@@ -67,9 +68,29 @@ while True:
                 if 'linkedin.com' in href:
                     linkedin_url = href
                     break
+            
+            Apollo_url = ''
+            for link in tbody.find_elements(By.TAG_NAME, 'a'):
+                href = link.get_attribute('href')
+                if 'app.apollo.io/#/contacts' in href:
+                    Apollo_url = href
+                    print(Apollo_url)
+                    break
+
 
             job_title_element = tbody.find_element(By.CLASS_NAME, 'zp_Y6y8d')
             job_title = job_title_element.text if job_title_element else ''
+            elements_with_class = tbody.find_elements(By.CLASS_NAME, 'zp_Y6y8d')
+            location=''
+            # Check if there is a second occurrence
+            if len(elements_with_class) > 1:
+                # Get the second occurrence for location
+                location_element = elements_with_class[1]
+                location = location_element.text
+                print("location",location)
+            else:
+                location = ''
+            
 
             company_name = ''
             for link in tbody.find_elements(By.TAG_NAME, 'a'):
@@ -77,23 +98,36 @@ while True:
                     company_name = link.text
                     break
 
-            phone_number = tbody.find_elements(By.TAG_NAME, 'a')[-1].text
+            phone_number = tbody.find_elements(By.TAG_NAME, 'a')[0].text
 
             button_classes = ["zp-button", "zp_zUY3r", "zp_hLUWg", "zp_n9QPr", "zp_B5hnZ", "zp_MCSwB", "zp_IYteB"]
             
             try:
+                time.sleep(2)
                 button = tbody.find_element(By.CSS_SELECTOR, "." + ".".join(button_classes))
                 if button:
                     button.click()
                     email_addresses = find_email_address(driver.page_source)
                     filtered_emails = filter_emails(email_addresses, 'sentry.io')
-                    with open(csv_file_name, 'a', newline='', encoding='utf-8') as file:
+                    print("asa",type(csv_file_name))
+                    # Specify the location and file name variables
+                    csv_location = 'C:/Users/91731/OneDrive/Desktop/New folder (2)'
+                    csv_file_name = 'your_file.csv'
+
+                    # Combine location and file name to get the full path
+                    csv_file_path = os.path.join(csv_location, csv_file_name)
+                    # Column names
+                    columns = ["firstName", "lastName", "jobTitle", "companyName", "location", "email", "email2", "linkedinUrl", "phone_number", "ApolloUrl"]
+                    with open(csv_file_path, 'a', newline='', encoding='utf-8') as file:
                         writer = csv.writer(file)
+                        if file.tell() == 0:
+                            writer.writerow(columns)
+                        print("file",file)
                         print(f"{first_name} has been poached!")
                         if len(filtered_emails) == 1:
-                            writer.writerow([first_name, last_name, job_title, company_name, filtered_emails[0], '', linkedin_url, phone_number])
+                            writer.writerow([first_name, last_name, job_title, company_name,location, filtered_emails[0], '', linkedin_url, phone_number,Apollo_url])
                         elif len(filtered_emails) == 2:
-                            writer.writerow([first_name, last_name, job_title, company_name, filtered_emails[0], filtered_emails[1], linkedin_url, phone_number])
+                            writer.writerow([first_name, last_name, job_title, company_name,location, filtered_emails[0], filtered_emails[1], linkedin_url, phone_number])
                     button.click()
                     tbody_height = driver.execute_script("return arguments[0].offsetHeight;", tbody)
                     driver.execute_script("arguments[0].scrollBy(0, arguments[1]);", loaded_section, tbody_height)
