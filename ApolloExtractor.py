@@ -43,12 +43,12 @@ def my_selenium_module(url, csv_file,csv_location,pagesfrom):
         
         
         time.sleep(1)
-        pages = int(pagesfrom) + 1
+        pages = int(pagesfrom)
         NumberOfRecordsLeft = 26
         
         while NumberOfRecordsLeft>25  and pages > 0:
             print("pages",pages)
-            time.sleep(8)
+            time.sleep(20)
             # Perform actions on the page
             netNewButton = driver.find_element(By.XPATH, "(//div[contains(@class, 'zp-tabs')]/a[2])[3]")
         
