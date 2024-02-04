@@ -1,5 +1,5 @@
-selenium==3.141.0
+selenium==4.6.0
 Flask==2.1.1
 Gunicorn
 Werkzeug==2.2.2
-# webdriver-manager
+webdriver-manager

@@ -1,12 +1,13 @@
 import re
 import csv
 from selenium import webdriver
-# from webdriver_manager.chrome import ChromeDriverManager
+from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
 from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver.support.ui import Select
+# from seleniumbase import Driver
 import time
 import os
 import random
@@ -32,19 +33,19 @@ def my_selenium_module(url, csv_file,csv_location,pagesfrom):
     # service = Service(chrome_driver_path)
     # driver = webdriver.Chrome(service=service, options=chrome_options)
 
-    # Set up the Selenium WebDriver
+    #Set up the Selenium WebDriver
     options = webdriver.ChromeOptions()
     options.add_argument('--no-sandbox')
     options.add_argument('--headless')
-    options.add_argument('--ignore-certificate-errors')
+    # options.add_argument('--ignore-certificate-errors')
     options.add_argument('--disable-dev-shm-usage')
     options.add_argument('--disable-extensions')
     options.add_argument('--disable-gpu')
     # options.add_argument('--user-agent={}'.format(random.choice(list(self.user_agents))))
+    
 
-    driver = webdriver.Chrome(options=options)
-    driver.set_page_load_timeout(90)
-
+    driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()),options=options)
+    driver.get(url)
     url=url
     csv_file_name='he.csv'
     if not csv_file.endswith('.csv'):
