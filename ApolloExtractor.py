@@ -23,12 +23,30 @@ def split_name(name):
     last_name = ' '.join(parts[1:]) if len(parts) > 1 else ''
     return first_name, last_name
 def my_selenium_module(url, csv_file,csv_location,pagesfrom):
+    # chrome_options = Options()
+    # user_data_dir = r'C:\Users\91731\AppData\Local\Google\Chrome\User Data\Default'
+    # chrome_options.add_argument(f"user-data-dir={user_data_dir}")
+    # chrome_driver_path = './chromedriver.exe'
+    # service = Service(chrome_driver_path)
+    # driver = webdriver.Chrome(service=service, options=chrome_options)
+
     chrome_options = Options()
-    user_data_dir = r'C:\Users\91731\AppData\Local\Google\Chrome\User Data\Default'
-    chrome_options.add_argument(f"user-data-dir={user_data_dir}")
+
+    # Use incognito mode to start with a clean user profile each time
+    chrome_options.add_argument('--incognito')
+
+    # If running on a server without a display, you might need to disable the GPU
+    chrome_options.add_argument('--disable-gpu')
+
+    # Set the window size in headless mode (optional)
+    chrome_options.add_argument('--window-size=1920x1080')
+
+    # Path to ChromeDriver executable
     chrome_driver_path = './chromedriver.exe'
-    service = Service(chrome_driver_path)
-    driver = webdriver.Chrome(service=service, options=chrome_options)
+
+    # Create the WebDriver instance with the configured options
+    driver = webdriver.Chrome(executable_path=chrome_driver_path, options=chrome_options)
+
     url=url
     csv_file_name='he.csv'
     if not csv_file.endswith('.csv'):
