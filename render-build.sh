@@ -13,16 +13,25 @@ if [[ ! -d $STORAGE_DIR/chrome ]]; then
   rm ./google-chrome-stable_current_amd64.deb
   cd $HOME/project/src # Make sure we return to where we were
 
+else
+  echo "...Using Chrome from cache"
+fi
+
+
+# Install ChromeDriver
+if [[ ! -f $STORAGE_DIR/chrome/chromedriver ]]; then
   echo "...Downloading ChromeDriver"
   CHROMEDRIVER_VERSION=$(google-chrome-stable --version | awk '{print $3}' | cut -d '.' -f 1-2)
   CHROMEDRIVER_URL="https://edgedl.me.gvt1.com/edgedl/chrome/chrome-for-testing/121.0.6167.85/win64/chromedriver-win64.zip"
   wget -O chromedriver.zip $CHROMEDRIVER_URL
   unzip chromedriver.zip -d $STORAGE_DIR/chrome
   rm chromedriver.zip
-
 else
-  echo "...Using Chrome from cache"
+  echo "...Using ChromeDriver from cache"
 fi
+
+# be sure to add Chrome's and Chromedriver's location to the PATH as part of your Start Command
+export PATH="${PATH}:/opt/render/project/.render/chrome/opt/google/chrome:/opt/render/project/.render/chrome"
 
 # be sure to add Chromes location to the PATH as part of your Start Command
 # export PATH="${PATH}:/opt/render/project/.render/chrome/opt/google/chrome"
