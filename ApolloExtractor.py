@@ -32,22 +32,18 @@ def my_selenium_module(url, csv_file,csv_location,pagesfrom):
     # service = Service(chrome_driver_path)
     # driver = webdriver.Chrome(service=service, options=chrome_options)
 
-    chrome_options = Options()
+    # Set up the Selenium WebDriver
+    options = webdriver.ChromeOptions()
+    options.add_argument('--no-sandbox')
+    options.add_argument('--headless')
+    options.add_argument('--ignore-certificate-errors')
+    options.add_argument('--disable-dev-shm-usage')
+    options.add_argument('--disable-extensions')
+    options.add_argument('--disable-gpu')
+    options.add_argument('--user-agent={}'.format(random.choice(list(self.user_agents))))
 
-    # Use incognito mode to start with a clean user profile each time
-    chrome_options.add_argument('--incognito')
-
-    # If running on a server without a display, you might need to disable the GPU
-    chrome_options.add_argument('--disable-gpu')
-
-    # Set the window size in headless mode (optional)
-    chrome_options.add_argument('--window-size=1920x1080')
-
-    # Path to ChromeDriver executable
-    chrome_driver_path = './chromedriver.exe'
-
-    # Create the WebDriver instance with the configured options
-    driver = webdriver.Chrome(ChromeDriverManager().install())
+    driver = webdriver.Chrome(options=options)
+    driver.set_page_load_timeout(90)
 
     url=url
     csv_file_name='he.csv'
