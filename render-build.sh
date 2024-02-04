@@ -15,7 +15,7 @@ if [[ ! -d $STORAGE_DIR/chrome ]]; then
 
   echo "...Downloading ChromeDriver"
   CHROMEDRIVER_VERSION=$(google-chrome-stable --version | awk '{print $3}' | cut -d '.' -f 1-2)
-  CHROMEDRIVER_URL="https://chromedriver.storage.googleapis.com/$CHROMEDRIVER_VERSION/chromedriver_linux64.zip"
+  CHROMEDRIVER_URL="https://edgedl.me.gvt1.com/edgedl/chrome/chrome-for-testing/121.0.6167.85/win64/chromedriver-win64.zip"
   wget -O chromedriver.zip $CHROMEDRIVER_URL
   unzip chromedriver.zip -d $STORAGE_DIR/chrome
   rm chromedriver.zip
