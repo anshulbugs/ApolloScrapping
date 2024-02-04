@@ -10,6 +10,7 @@ from selenium.webdriver.support.ui import Select
 from webdriver_manager.chrome import ChromeDriverManager
 import time
 import os
+import random
 
 def find_email_address(page_source):
     email_pattern = r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b'
@@ -55,6 +56,7 @@ def my_selenium_module(url, csv_file,csv_location,pagesfrom):
     csv_file_path = os.path.join(csv_location, csv_file_name)
     try:
         # Navigate to the initial link
+        driver.implicitly_wait(6)
         driver.get(url)
         
         
