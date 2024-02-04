@@ -26,29 +26,29 @@ def split_name(name):
     last_name = ' '.join(parts[1:]) if len(parts) > 1 else ''
     return first_name, last_name
 def my_selenium_module(url, csv_file,csv_location,pagesfrom):
-    # chrome_options = Options()
+    chrome_options = Options()
     # user_data_dir = r'C:\Users\91731\AppData\Local\Google\Chrome\User Data\Default'
     # chrome_options.add_argument(f"user-data-dir={user_data_dir}")
-    # chrome_driver_path = './chromedriver.exe'
-    # service = Service(chrome_driver_path)
-    # driver = webdriver.Chrome(service=service, options=chrome_options)
+    chrome_driver_path = './chromedriver.exe'
+    service = Service(chrome_driver_path)
+    driver = webdriver.Chrome(service=service, options=chrome_options)
 
-    # Set up the Selenium WebDriver
-    options = webdriver.ChromeOptions()
-    options.add_argument('--no-sandbox')
-    options.add_argument('--headless')
-    options.add_argument('--ignore-certificate-errors')
-    options.add_argument('--disable-dev-shm-usage')
-    options.add_argument('--disable-extensions')
-    options.add_argument('--disable-gpu')
-    # options.add_argument('--user-agent={}'.format(random.choice(list(self.user_agents))))
+    # # Set up the Selenium WebDriver
+    # options = webdriver.ChromeOptions()
+    # options.add_argument('--no-sandbox')
+    # options.add_argument('--headless')
+    # options.add_argument('--ignore-certificate-errors')
+    # options.add_argument('--disable-dev-shm-usage')
+    # options.add_argument('--disable-extensions')
+    # options.add_argument('--disable-gpu')
+    # # options.add_argument('--user-agent={}'.format(random.choice(list
 
-    driver = webdriver.Chrome(options=options)
-    driver.set_page_load_timeout(90)
+    # driver = webdriver.Chrome(options=options)
+    # driver.set_page_load_timeout(90)
 
-    # Load the URL and get the page source
-    driver.implicitly_wait(6)
-    driver.get(url)
+    # # Load the URL and get the page source
+    # driver.implicitly_wait(6)
+    # driver.get(url)
     # ...
     url=url
     csv_file_name='he.csv'
