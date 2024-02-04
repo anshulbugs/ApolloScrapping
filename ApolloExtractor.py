@@ -41,7 +41,7 @@ def my_selenium_module(url, csv_file,csv_location,pagesfrom):
     options.add_argument('--disable-dev-shm-usage')
     options.add_argument('--disable-extensions')
     options.add_argument('--disable-gpu')
-    options.add_argument('--user-agent={}'.format(random.choice(list(self.user_agents))))
+    # options.add_argument('--user-agent={}'.format(random.choice(list(self.user_agents))))
 
     driver = webdriver.Chrome(options=options)
     driver.set_page_load_timeout(90)
