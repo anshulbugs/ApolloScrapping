@@ -1,11 +1,13 @@
 import re
 import csv
 from selenium import webdriver
+from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
 from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver.support.ui import Select
+from webdriver_manager.chrome import ChromeDriverManager
 import time
 import os
 
@@ -45,7 +47,7 @@ def my_selenium_module(url, csv_file,csv_location,pagesfrom):
     chrome_driver_path = './chromedriver.exe'
 
     # Create the WebDriver instance with the configured options
-    driver = webdriver.Chrome(executable_path=chrome_driver_path, options=chrome_options)
+    driver = webdriver.Chrome(ChromeDriverManager().install())
 
     url=url
     csv_file_name='he.csv'
