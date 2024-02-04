@@ -33,19 +33,23 @@ def my_selenium_module(url, csv_file,csv_location,pagesfrom):
     # service = Service(chrome_driver_path)
     # driver = webdriver.Chrome(service=service, options=chrome_options)
 
-    #Set up the Selenium WebDriver
+    # Set up the Selenium WebDriver
     options = webdriver.ChromeOptions()
     options.add_argument('--no-sandbox')
     options.add_argument('--headless')
-    # options.add_argument('--ignore-certificate-errors')
+    options.add_argument('--ignore-certificate-errors')
     options.add_argument('--disable-dev-shm-usage')
     options.add_argument('--disable-extensions')
     options.add_argument('--disable-gpu')
     # options.add_argument('--user-agent={}'.format(random.choice(list(self.user_agents))))
-    
 
-    driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()),options=options)
+    driver = webdriver.Chrome(options=options)
+    driver.set_page_load_timeout(90)
+
+    # Load the URL and get the page source
+    driver.implicitly_wait(6)
     driver.get(url)
+    # ...
     url=url
     csv_file_name='he.csv'
     if not csv_file.endswith('.csv'):
